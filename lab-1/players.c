@@ -12,6 +12,7 @@ typedef struct _player {
 void printnode(PLAYER* player) {
         printf("[%s, %d] ", player->name, player->num);
 }
+
 void printlist(PLAYER* ptr) {
     while (ptr) {
         printnode(ptr);
@@ -95,14 +96,14 @@ PLAYER* makeplayer(char* name, int num) {
 }
 
 void main() {
-    PLAYER* head = makeplayer("shru", 1);
-    PLAYER* dad = makeplayer("shiv", 2);
-    head = insertat(head, 0, dad);
-    PLAYER* mom = makeplayer("pri", 3);
-    head = append(head, mom);
-    printnode(getplayerbynumber(head, 2));
+    PLAYER* head = makeplayer("dhoni", 7);
+    PLAYER* vicecap = makeplayer("kohli", 18);
+    head = insertat(head, 0, vicecap);
+    PLAYER* batsman = makeplayer("raina", 3);
+    head = append(head, batsman);
+    printnode(getplayerbynumber(head, 18));
     printf("\n");
     printlist(head);
-    head = del(head, 1);
+    head = del(head, 18);
     printlist(head);
 }
