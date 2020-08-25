@@ -44,13 +44,18 @@ void swap(int* x, int* y) {
     *y = temp;
 }
 
-void reverse(int len) {
-    int* start = stack;
-    int* end = stack + (len - 1);
+void reverse(int* start, int* end) {
     //swapping contents of end and start ptrs
     while (end > start) {
         swap(start, end);
         end--; start++;
+    }
+}
+
+void revrecur(int* start, int* end) {
+    if (start < end) {
+        swap(start, end);
+        revrecur(start + 1, end - 1);
     }
 }
 
@@ -105,7 +110,11 @@ void main() {
                     displaystack();
                 break;
                 case 5:
-                    reverse(no_of_pushes);
+                    ;
+                    int* start = stack;
+                    int* end = stack + (no_of_pushes - 1);
+                    //reverse(start, end);
+                    revrecur(start, end);
                 break;
             }
         }
