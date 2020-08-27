@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define LEN 3
 
 typedef struct _node {
     int data;
@@ -8,17 +7,22 @@ typedef struct _node {
     struct _node* down;
 } NODE;
 
-NODE* construct(int arr[LEN][LEN], int i, int j, int rows, int cols) {
-    if (i > cols - 1 || j > rows - 1) return NULL;
+
+int getarrayindex(int cols, int i, int j) {
+     return i*cols + j;
+}
+
+NODE* construct(int *arr, int i, int j, int rows, int cols) {
+    if (i > rows - 1 || j > cols - 1) return NULL;
 
     NODE* newnode = (NODE*)malloc(sizeof(NODE));
-    newnode->data = arr[i][j];
+    newnode->data = arr[getarrayindex(cols, i, j)];
     newnode->right = construct(arr, i, j + 1, rows, cols);
     newnode->down = construct(arr, i + 1, j, rows, cols);
     return newnode;
 }
 
-void display(NODE* head) {
+void display(NODE* head, int dim) {
     NODE* rightptr;
     NODE* downptr = head;
     int i = 0;
@@ -30,7 +34,7 @@ void display(NODE* head) {
         }
         printf("NULL\n");
         i = 0;
-        while(i < LEN) {
+        while(i < dim) {
             printf("|     ");
             i++;
         }
@@ -41,7 +45,7 @@ void display(NODE* head) {
     }
     printf("\n");
     i = 0;
-    while (i < LEN) {
+    while (i < dim) {
         printf("NULL  ");
         i++;
     }
@@ -49,13 +53,18 @@ void display(NODE* head) {
 }
 
 void main() {
-    int arr[LEN][LEN] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9},
-    };
+    int dim;
+    printf("Enter dimension of your matrix: ");
+    scanf("%d", &dim);
+    int arr[dim*dim];
 
-    int rows = LEN, cols = LEN;
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
+            scanf("%d", &arr[getarrayindex(dim, i, j)]);
+        }
+    }
+
+    int rows = dim, cols = dim;
     NODE* head = construct(arr, 0, 0, rows, cols);
-    display(head);
+    display(head, dim);
 }

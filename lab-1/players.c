@@ -83,27 +83,51 @@ PLAYER* getplayerbynumber(PLAYER* head, int num) {
     }
     if (head == NULL) {
         printf("Not found!\n");
+        exit(1);
     }
     return head;
 }
 
-PLAYER* makeplayer(char* name, int num) {
+PLAYER* makeplayer() {
     PLAYER* newplayer = (PLAYER*)malloc(sizeof(PLAYER));
-    newplayer->name = name;
-    newplayer->num = num;
-    newplayer->next = NULL;
-    return newplayer;
+    printf ("Enter the name of your player, (type \"quit\" to quit): ");
+    char name[100];
+    scanf("%s", name);
+
+    if (strcmp(name, "quit") == 0) {
+        return NULL;
+    }
+    else {
+        newplayer->name = malloc(strlen(name) + 1);
+        strcpy(newplayer->name, name);
+
+        printf("Enter their jersey number: ");
+        scanf("%d", &newplayer->num);
+
+        newplayer->next = NULL;
+        return newplayer;
+    }
 }
 
 void main() {
-    PLAYER* head = makeplayer("dhoni", 7);
-    PLAYER* vicecap = makeplayer("kohli", 18);
-    head = insertat(head, 0, vicecap);
-    PLAYER* batsman = makeplayer("raina", 3);
-    head = append(head, batsman);
-    printnode(getplayerbynumber(head, 18));
+    PLAYER *head = makeplayer();
+    PLAYER *next;
+    while (next = makeplayer())  {
+        int position;
+        printf("Enter the position to insert at (enter -1 to append): ");
+        scanf("%d", &position);
+        if (position < 0) {
+            head = append(head, next);
+        } else {
+            head = insertat(head, position, next);
+        }
+    }
+
+    printlist(head);
+    int num;
+    printf("Enter a number to search for a player by: ");
+    scanf("%d", &num);
+    printnode(getplayerbynumber(head, num));
     printf("\n");
-    printlist(head);
-    head = del(head, 18);
-    printlist(head);
 }
+

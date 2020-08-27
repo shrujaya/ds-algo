@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #define LEN 3
 
 int stack[LEN];
@@ -33,7 +34,6 @@ void pop1() {
     }
 }
 
-
 void pop2() {
     if (top2 < LEN) {
         int popped = stack[top2++];
@@ -61,7 +61,54 @@ void printstack2() {
 }
 
 void main() {
-    push1(3);
+    printf("Here are 2 stacks to play with!\n");
+    printf("Choose what you want to do with them:\n");
+    printf("1. Push an element into stack1\n");
+    printf("2. Push an element into stack2\n");
+    printf("3. Pop an element out of stack1\n");
+    printf("4. Pop an element out of stack2\n");
+    printf("5. Display stack1\n");
+    printf("6. Display stack2\n");
+
+    int choice;
+    int n = 0;
+
+    while(1) {
+        printf ("Enter your choice 1/2/3/4/5/6 or -1 to quit!\n");
+        scanf("%d", &choice);
+        if (choice != -1) {
+            switch(choice) {
+                case 1:
+                    printf("Enter element to push: ");
+                    scanf("%d", &n);
+                    push1(n);
+                break;
+                case 2:
+                    printf("Enter element to push: ");
+                    scanf("%d", &n);
+                    push2(n);
+                break;
+                case 3:
+                    pop1();
+                break;
+                case 4:
+                    pop2();
+                break;
+                case 5:
+                    printstack1();
+                break;
+                case 6:
+                    printstack2();
+                break;
+            }
+        }
+        else {
+            exit(1);
+        }
+    }
+}
+/*
+     push1(3);
     printstack1();
     push1(4);
     printstack1();
@@ -80,3 +127,4 @@ void main() {
     pop2();
     printstack2();
 }
+*/
