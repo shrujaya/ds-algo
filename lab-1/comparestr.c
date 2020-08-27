@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #define LEN 100
 
@@ -21,11 +22,16 @@ void main() {
     printf("Enter second string: ");
     scanf("%s", s2);
 
-    int res = compare(s1, s2);
-    if (res == 0) {
-        printf("%s and %s match!\n", s1, s2);
+    if(strlen(s1) != strlen(s2)) {
+        printf("%s and %s don't match\n", s1, s2);
     }
     else {
-        printf("%s and %s don't match\n", s1, s2);
+        int res = compare(s1, s2);
+        if (res == 0) {
+            printf("%s and %s match!\n", s1, s2);
+        }
+        else {
+            printf("%s and %s don't match\n", s1, s2);
+        }
     }
 }
