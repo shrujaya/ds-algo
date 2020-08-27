@@ -107,24 +107,3 @@ void main() {
         }
     }
 }
-/*
-     push1(3);
-    printstack1();
-    push1(4);
-    printstack1();
-    push1(5);
-    printstack1();
-    push2(5);
-    printstack2();
-
-    pop1();
-    printstack1();
-    pop1();
-    printstack1();
-    push2(10);
-    pop2();
-    printstack2();
-    pop2();
-    printstack2();
-}
-*/

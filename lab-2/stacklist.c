@@ -86,14 +86,3 @@ void main() {
 		}
     }
 }
-
-    /*
-    push(3);
-    push(4);
-    displaystack();
-    printf("The topmost element is: %d\n", peek(top));
-    printf("You popped: %d\n", pop());
-    displaystack(top);
-    printf("The topmost element is: %d\n", peek(top));
-    */
-
