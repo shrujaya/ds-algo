@@ -3,8 +3,8 @@
 
 typedef struct _node {
     int data;
-    struct _node* right;
-    struct _node* down;
+    struct _node *right;
+    struct _node *down;
 } NODE;
 
 
@@ -12,13 +12,19 @@ int getarrayindex(int cols, int i, int j) {
      return i*cols + j;
 }
 
-NODE* construct(int *arr, int i, int j, int rows, int cols) {
+int mallocCount = 0;
+NODE* construct(int *arr, int i, int j, int rows, int cols, void **ptrcache) {
     if (i > rows - 1 || j > cols - 1) return NULL;
+    
+    void *cachedPtr = ptrcache[getarrayindex(cols, i, j)];
+    if (cachedPtr) return cachedPtr;
 
+    mallocCount++;
     NODE* newnode = (NODE*)malloc(sizeof(NODE));
+    ptrcache[getarrayindex(cols, i, j)] = newnode;
     newnode->data = arr[getarrayindex(cols, i, j)];
-    newnode->right = construct(arr, i, j + 1, rows, cols);
-    newnode->down = construct(arr, i + 1, j, rows, cols);
+    newnode->right = construct(arr, i, j + 1, rows, cols, ptrcache);
+    newnode->down = construct(arr, i + 1, j, rows, cols, ptrcache);
     return newnode;
 }
 
@@ -57,14 +63,18 @@ void main() {
     printf("Enter dimension of your matrix: ");
     scanf("%d", &dim);
     int arr[dim*dim];
+    void* ptrcache[dim*dim];
 
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
             scanf("%d", &arr[getarrayindex(dim, i, j)]);
+	    ptrcache[getarrayindex(dim, i, j)] = NULL;
         }
     }
 
     int rows = dim, cols = dim;
-    NODE* head = construct(arr, 0, 0, rows, cols);
+    NODE* head = construct(arr, 0, 0, rows, cols, ptrcache);
     display(head, dim);
+    printf("malloc count is %d\n", mallocCount);
+    printf("%p %d ....  %p %d \n", head->right->down, head->right->down->data,  head->down->right, head->down->right->data); 
 }
