@@ -12,14 +12,12 @@ int getarrayindex(int cols, int i, int j) {
      return i*cols + j;
 }
 
-int mallocCount = 0;
 NODE* construct(int *arr, int i, int j, int rows, int cols, void **ptrcache) {
     if (i > rows - 1 || j > cols - 1) return NULL;
-    
-    void *cachedPtr = ptrcache[getarrayindex(cols, i, j)];
-    if (cachedPtr) return cachedPtr;
 
-    mallocCount++;
+    void *cachedptr = ptrcache[getarrayindex(cols, i, j)];
+    if (cachedptr) return cachedptr;
+
     NODE* newnode = (NODE*)malloc(sizeof(NODE));
     ptrcache[getarrayindex(cols, i, j)] = newnode;
     newnode->data = arr[getarrayindex(cols, i, j)];
@@ -68,13 +66,11 @@ void main() {
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
             scanf("%d", &arr[getarrayindex(dim, i, j)]);
-	    ptrcache[getarrayindex(dim, i, j)] = NULL;
+    	    ptrcache[getarrayindex(dim, i, j)] = NULL;
         }
     }
 
     int rows = dim, cols = dim;
     NODE* head = construct(arr, 0, 0, rows, cols, ptrcache);
     display(head, dim);
-    printf("malloc count is %d\n", mallocCount);
-    printf("%p %d ....  %p %d \n", head->right->down, head->right->down->data,  head->down->right, head->down->right->data); 
 }
