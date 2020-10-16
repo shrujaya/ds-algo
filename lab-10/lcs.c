@@ -22,7 +22,22 @@ int lcs(char* s1, char* s2, int l1, int l2) {
             }
         }
     }
-    return LCS[l1][l2];
+    int len = LCS[l1][l2];
+    printf("The length of the lcs is %d\n", len);
+
+    char lcsstr[len + 1];
+    lcsstr[len] = '\0';
+
+    int i = l1, j = l2;
+    while (i > 0 && j > 0) {
+        if (s1[i - 1] == s2[j - 1]) {
+            lcsstr[len - 1] = s1[i - 1];
+            i--; j--; len--;
+        }
+        else if (LCS[i - 1][j] > LCS[i][j - 1]) { i--; }
+        else { j--; }
+    }
+    printf("The lcs is %s\n", lcsstr);
 }
 
 int main() {
@@ -34,6 +49,5 @@ int main() {
 
     int l1 = strlen(s1);
     int l2 = strlen(s2);
-
-    printf("The length of the lcs is %d\n", lcs(s1, s2, l1, l2));
+    lcs(s1, s2, l1, l2);
 }
