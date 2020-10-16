@@ -28,7 +28,7 @@ void dijkstra(int graph[MAX][MAX], int n, int start) {
 	while (count < n - 1) {
 		mindist = INF;
 		//nextnode gives the node at minimum distance
-        for (i = 0; i < n; i++)
+        	for (i = 0; i < n; i++)
 			if (distance[i] < mindist && !visited[i]) {
 				mindist = distance[i];
 				next = i;
@@ -42,7 +42,7 @@ void dijkstra(int graph[MAX][MAX], int n, int start) {
 						distance[i] = mindist + cost[next][i];
 						pred[i] = next;
 					}
-		count++;
+    		count++;
 	}
 
 	//print the path and distance of each node
